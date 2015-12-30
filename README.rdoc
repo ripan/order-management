@@ -1,0 +1,49 @@
+Setup
+  - git clone https://github.com/ripan/order-management.git
+  - bundle
+  - rake db:create
+  - rake db:migrate
+  - rake db:seed
+  - rails s
+
+RubyGems Environment:
+  - RUBYGEMS VERSION: 2.4.5.1
+  - RUBY VERSION: 2.2.3 (2015-08-18 patchlevel 173) [x86_64-darwin14]
+  - Rails 4.2.4
+  
+Database:
+  - MySQL
+  
+Order management API
+  - List Orders
+      curl http://order-management.dev/api/v1/orders -v
+  - Show Order Details
+      curl http://order-management.dev/api/v1/orders/1 -v
+  - List Order Line Items
+      curl http://order-management.dev/api/v1/orders/1/line_items -v
+  - Create Order
+      curl http://order-management.dev/api/v1/orders -d '{"client_id":1,"date":"2015-12-13","line_items":[{"product_id":1,"quantity":4}]}' -H Content-Type:application/json -v
+  - Delete Order
+      curl -X DELETE http://order-management.dev/api/v1/orders/2
+  - Update Order
+      curl -X PUT http://order-management.dev/api/v1/orders/9 -d '{"client_id":1,"date":"2015-12-13","order_status":"PLACED", "line_items":[{"product_id":1,"quantity":5}]}' -H Content-Type:application/json -v
+  - Update Order Status
+      curl -X PUT http://order-management.dev/api/v1/orders/9/update_status -d '{"order_status":"CANCELLED"}' -H Content-Type:application/json -v
+  - Add item to an Order
+      curl http://order-management.dev/api/v1/orders/9/add_item -d '{line_items":[{"product_id":1,"quantity":5}]}' -H Content-Type:application/json -v
+  - Delete item from Order
+      curl -X DELETE http://order-management.dev/api/v1/orders/2/delete_item/11.json
+  - Update Order Item Quantity
+      curl -X PUT http://order-management.dev/api/v1/orders/9/update_item/10.json -d '{"quantity":10}' -H Content-Type:application/json -v
+
+Product management API
+  - List Products
+      curl http://order-management.dev/api/v1/products -v
+  - Show Product
+      curl http://order-management.dev/api/v1/products/1 -v
+  - Create Product
+      curl http://order-management.dev/api/v1/products -d "name=productname&price=30" -v
+  - Delete Product
+      curl -X DELETE http://order-management.dev/api/v1/products/2
+  - Update Product
+      curl -X PUT http://order-management.dev/api/v1/products/60 -d "name=productname1&price=30"
